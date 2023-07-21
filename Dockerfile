@@ -9,3 +9,5 @@ COPY nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder /app/dist/qaroni-prueba/index.html /usr/share/nginx/html
 
 COPY --from=builder /app/dist/qaroni-prueba /usr/share/nginx/html/
+
+EXPOSE 80
