@@ -1,0 +1,24 @@
+<app-menu></app-menu>
+
+<div class="h-auto bg-gray-100 p-4">
+  <div class="w-full md:w-[90%] lg:w-[90%] mx-auto lg:max-w-[1200px]">
+    <ng-container *ngIf="(merchants | async) as merchants">
+      <ng-container *ngIf="(merchants.length > 0); else notData">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+          <ng-container *ngFor="let item of merchants">
+            <app-card-news [news]="item" (redirect)="navigate($event)"></app-card-news>
+          </ng-container>
+        </div>
+      </ng-container>
+
+      <ng-template #notData>
+        <div class="h-screen w-full flex items-center justify-center">
+          <div class="flex flex-col mx-auto w-full text-center">
+            <h1 class="font-bold text-[3rem] md:text-[4rem]">!Lo sentimos¡</h1>
+            <p class="font-light text-[1.1rem] md:text-[1.5rem]">En estos momentos no tenemos noticias para ti</p>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+</div>

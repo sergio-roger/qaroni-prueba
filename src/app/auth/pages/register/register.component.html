@@ -1,0 +1,174 @@
+<div
+  class="min-h-screen bg-gray-100 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+>
+  <div
+    class="max-w-md w-full bg-white p-8 rounded-lg shadow-lg animate-fade-in-up"
+  >
+    <h2 class="text-3xl text-center font-bold text-gray-900 mb-6">
+      Formulario
+    </h2>
+
+    <form class="space-y-3" [formGroup]="form" (ngSubmit)="sendData()">
+      <div class="relative">
+        <mat-form-field class="w-full">
+          <mat-label>Nombres</mat-label>
+          <input matInput type="text" formControlName="name" minlength="3" />
+        </mat-form-field>
+
+        <ng-container
+          *ngIf="
+            (submit && get('name')?.errors) ||
+            get('name')?.touched || get('name')?.dirty
+          "
+        >
+          <mat-error *ngIf="get('name').hasError('required')" class="mt-[-15px]"
+            >Nombres es <strong>requerido</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="get('name').hasError('minlength')"
+            class="mt-[-15px]"
+            >Mínimo <strong>3 carácteres</strong>
+          </mat-error>
+          <mat-error *ngIf="get('name').hasError('pattern')" class="mt-[-15px]"
+            >Solo ingrese <strong>letras</strong>
+          </mat-error>
+        </ng-container>
+      </div>
+
+      <div class="relative">
+        <mat-form-field class="w-full">
+          <mat-label>Apellidos</mat-label>
+          <input matInput type="text" formControlName="lastName" />
+        </mat-form-field>
+
+        <ng-container
+          *ngIf="
+            (submit && get('lastName')?.errors) ||
+            get('lastName')?.touched || get('lastName')?.dirty
+          "
+        >
+          <mat-error
+            *ngIf="get('lastName').hasError('required')"
+            class="mt-[-15px]"
+            >Apellido es
+            <strong>requerido</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="get('lastName').hasError('minlength')"
+            class="mt-[-15px]"
+            >Mínimo <strong>3 carácteres</strong>
+          </mat-error>
+          <mat-error
+            *ngIf="get('lastName').hasError('pattern')"
+            class="mt-[-15px]"
+            >Solo ingrese <strong>letras</strong>
+          </mat-error>
+        </ng-container>
+      </div>
+
+      <div class="relative">
+        <mat-checkbox
+          class="example-margin"
+          color="primary"
+          formControlName="showAddButtonChildren"
+        >
+          Tienes hijos menores a 18 años</mat-checkbox
+        >
+      </div>
+
+      <ng-container *ngIf="get('showAddButtonChildren').value">
+        <div class="relative">
+          <button
+            mat-flat-button
+            color="warn"
+            type="button"
+            (click)="addChildren()"
+          >
+            <mat-icon>add</mat-icon>
+            Agregar hijos
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="childrens.controls.length > 0">
+        <h3 class="font-bold text-blue-700">Lista de hijos</h3>
+        <hr />
+        <div formArrayName="childrens">
+          <div
+            class="my-2"
+            *ngFor="let formChildren of childrens.controls; let i = index"
+          >
+            <app-children [form]="getChildrenByIndex(i)"></app-children>
+            <button
+              mat-flat-button
+              type="button"
+              color="warn"
+              (click)="removeChidren(i)"
+            >
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            <hr class="my-3" />
+          </div>
+        </div>
+      </ng-container>
+
+      <div class="relative">
+        <mat-checkbox
+          class="example-margin"
+          color="primary"
+          formControlName="showAddButtonPeli"
+        >
+          Te gusta alguna película</mat-checkbox
+        >
+      </div>
+
+      <ng-container *ngIf="get('showAddButtonPeli').value">
+        <div class="relative">
+          <button
+            mat-flat-button
+            color="warn"
+            type="button"
+            (click)="addPeli()"
+          >
+            <mat-icon>add</mat-icon>
+            Agregar películas
+          </button>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="pelis.controls.length > 0">
+        <h3 class="font-bold text-blue-700">Lista de películas</h3>
+        <hr />
+        <div formArrayName="childrens">
+          <div
+            class="my-2"
+            *ngFor="let formPelis of pelis.controls; let i = index"
+          >
+            <app-peli [form]="getPelisByIndex(i)"></app-peli>
+            <button
+              mat-flat-button
+              type="button"
+              color="warn"
+              (click)="removePelis(i)"
+            >
+              <mat-icon>remove_circle</mat-icon>
+            </button>
+            <hr class="my-3" />
+          </div>
+        </div>
+      </ng-container>
+
+      <div>
+        <button
+          mat-flat-button
+          color="primary"
+          type="submit"
+          class="w-full rounded-lg"
+          [disabled]="disabled"
+        >
+          Registrarme
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

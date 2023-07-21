@@ -1,0 +1,53 @@
+<form [formGroup]="form">
+  <div class="relative">
+    <mat-form-field class="w-full">
+      <mat-label>Nombre de la película</mat-label>
+      <input matInput type="text" formControlName="name" minlength="3">
+    </mat-form-field>
+
+    <ng-container *ngIf="(get('name')?.errors) || (get('name')?.touched || get('name')?.dirty)">
+      <mat-error *ngIf="get('name').hasError('required')" class="mt-[-15px]">Nombre es <strong>requerido</strong>
+      </mat-error>
+      <mat-error *ngIf="get('name').hasError('minlength')" class="mt-[-15px]">Mínimo <strong>3 carácteres</strong>
+      </mat-error>
+      <mat-error *ngIf="get('name').hasError('pattern')" class="mt-[-15px]">Solo ingrese <strong>letras</strong>
+      </mat-error>
+    </ng-container>
+  </div>
+
+  <div class="relative">
+    <mat-form-field class="w-full">
+      <mat-label>Director de la película</mat-label>
+      <input matInput type="text" formControlName="director" minlength="3">
+    </mat-form-field>
+
+    <ng-container *ngIf="(get('director')?.errors) || (get('director')?.touched || get('director')?.dirty)">
+      <mat-error *ngIf="get('director').hasError('required')" class="mt-[-15px]">Nombre del director es <strong>requerido</strong>
+      </mat-error>
+      <mat-error *ngIf="get('director').hasError('minlength')" class="mt-[-15px]">Mínimo <strong>3 carácteres</strong>
+      </mat-error>
+      <mat-error *ngIf="get('director').hasError('pattern')" class="mt-[-15px]">Solo ingrese <strong>letras</strong>
+      </mat-error>
+    </ng-container>
+  </div>
+
+  <div class="relative">
+    <mat-form-field class="w-full">
+      <mat-label>Año</mat-label>
+      <input matInput type="text" formControlName="year">
+    </mat-form-field>
+
+    <ng-container *ngIf="(get('year')?.errors) || (get('year')?.touched || get('year')?.dirty)">
+      <mat-error *ngIf="get('year').hasError('required')" class="mt-[-15px]">Año de la película es <strong>requerido</strong>
+      </mat-error>
+      <mat-error *ngIf="get('year').hasError('pattern')" class="mt-[-15px]">Formato de año <strong>incorrecto</strong>
+      </mat-error>
+    </ng-container>
+  </div>
+
+  <div class="relative">
+    <mat-checkbox class="example-margin" color="primary" formControlName="winOscar">
+      Ganó el Oscar</mat-checkbox>
+  </div>
+
+</form>

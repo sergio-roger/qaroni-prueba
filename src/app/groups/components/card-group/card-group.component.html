@@ -1,0 +1,45 @@
+<ng-container *ngIf="group">
+  <mat-card class="w-full h-[400px] overflow-hidden">
+    <mat-card-header class="w-full flex flex-col">
+      <mat-card-subtitle class="w-full flex">
+        <div class="flex justify-between items-center">
+          <mat-chip color="accent" [disabled]="group.status=='INACTIVE'">{{ group.status }} </mat-chip>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+      </mat-card-subtitle>
+
+      <div class="w-full flex justify-between">
+        <mat-card-title class="ml-2">{{ group.name | uppercase }}</mat-card-title>
+      </div>
+    </mat-card-header>
+
+    <mat-card-content class="w-full h-full cursor-pointer" [routerLink]="'/groups/detail/'+group.groupId">
+      <ng-container *ngIf="group.description; else notDescr">
+        <div [innerHTML]="group.description"></div>
+      </ng-container>
+
+      <ng-template #notDescr>
+        <div class="w-full h-full flex items-center justify-center">
+          <span class="font-bold">Sin descripcion</span>
+        </div>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <span>Ver detalle</span>
+  </button>
+
+  <button mat-menu-item>
+    <span>Reportar</span>
+  </button>
+
+  <button mat-menu-item>
+    <span>Boquear</span>
+  </button>
+</mat-menu>

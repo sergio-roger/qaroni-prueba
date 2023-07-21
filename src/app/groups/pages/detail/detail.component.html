@@ -1,0 +1,73 @@
+<app-menu></app-menu>
+
+<div class=" w-full h-auto">
+  <div class="w-full h-auto min-h-[90vh]">
+    <mat-drawer-container class="example-container h-full min-h-[90vh]" [hasBackdrop]="'True'">
+      <mat-drawer #drawer [mode]="'over'" class="w-[250px]">
+        <div class="w-full h-full flex flex-col gap-[10px]">
+          <div class="w-[100px] h-[100px] rounded-full overflow-auto mx-auto">
+            <img src="assets/shiba2.jpg" alt="" class="w-full h-full rounded-full shadow">
+          </div>
+
+          <div class="text-center flex flex-col">
+            <span class="text-blue-700 font-normal">Bienvenido</span>
+            <span class="font-bold text-sm md:text-md lg:text-lg">{{ utilService.email }}</span>
+          </div>
+
+          <div class="mt-5 w-full flex justify-center">
+            <app-logout></app-logout>
+          </div>
+        </div>
+      </mat-drawer>
+
+      <mat-drawer-content class="bg-gray-100 min-h-screen">
+        <!-- Cambiar h-screen por h-auto -->
+        <div class="w-full h-auto flex flex-col gap-[10px] p-5">
+          <div class="flex">
+            <div (click)="drawer.toggle()" class="cursor-pointer">
+              <i class="material-icons">menu</i>
+            </div>
+
+            <h2 class="w-full text-center">Detalle del grupo</h2>
+          </div>
+
+          <div class="w-full md:w-[90%] lg:w-[90%] mx-auto lg:max-w-[1200px]">
+            <ng-container *ngIf="group; else loading">
+              <mat-card class="w-full h-[400px] overflow-hidden">
+                <mat-card-header class="w-full flex flex-col">
+                  <mat-card-subtitle class="w-full flex">
+                    <div class="flex justify-between items-center">
+                      <mat-chip color="accent" [disabled]="group.status=='INACTIVE'">{{ group.status }} </mat-chip>
+                    </div>
+                  </mat-card-subtitle>
+
+                  <div class="w-full flex justify-between">
+                    <mat-card-title class="ml-2">{{ group.name | uppercase }}</mat-card-title>
+                  </div>
+                </mat-card-header>
+
+                <mat-card-content class="w-full h-full cursor-pointer" [routerLink]="'/groups/detail/'+group.groupId">
+                  <ng-container *ngIf="group.description; else notDescr">
+                    <div [innerHTML]="group.description"></div>
+                  </ng-container>
+
+                  <ng-template #notDescr>
+                    <div class="w-full h-full flex items-center justify-center">
+                      <span class="font-bold">Sin descripcion</span>
+                    </div>
+                  </ng-template>
+                </mat-card-content>
+              </mat-card>
+            </ng-container>
+
+            <ng-template #loading>
+              <div class="w-full h-screen flex items-center justify-center">
+                <app-loading></app-loading>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  </div>
+</div>

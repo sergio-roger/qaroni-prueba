@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+.news-image {
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  filter: sepia(30%);
+  -webkit-filter: sepia(30%);
+  -moz-filter: sepia(30%);
+}
+
+.news-image:hover {
+  transform: scale(1.2) rotate(7deg);
+  filter: sepia(0%);
+  -webkit-filter: sepia(0%);
+  -moz-filter: sepia(0%);
+}
